@@ -1,13 +1,17 @@
 <?php
+    #muestran errores de codigo de php en tiempo de ejecucion
+    error_reporting(E_ALL);
+    ini_set('display_errors', '1');
+
     require('../class/rutas.php');
     require('../class/conexion.php');
 
     $res = $mbd->query("SELECT id, nombre, codigo FROM regiones ORDER BY id DESC");
     $regiones = $res->fetchall();
 
-    /* echo '<pre>';
-    print_r($regiones);exit;
-    echo '</pre>'; */
+    // echo '<pre>';
+    // print_r($regiones);exit;
+    // echo '</pre>';
 ?>
 <!DOCTYPE html>
 <html lang="en">
