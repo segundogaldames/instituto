@@ -71,16 +71,17 @@
             <form action="" method="POST">
                 <div class="mb-3">
                     <label for="nombre" class="form-label">Región</label>
-                    <input type="text" name="nombre" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <input type="text" name="nombre" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?php if(isset($_POST['nombre'])) echo $_POST['nombre']; ?>">
                     <div id="emailHelp" class="form-text">Ingresa la región que deseas registrar.</div>
                 </div>
                 <div class="mb-3">
                     <label for="nombre" class="form-label">Código</label>
-                    <input type="text" name="codigo" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <input type="text" name="codigo" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?php if(isset($_POST['codigo'])) echo $_POST['codigo']; ?>">
                     <div id="emailHelp" class="form-text">Ingresa el codigo de la región que deseas registrar.</div>
                 </div>
-            <input type="hidden" name="confirm" value="1">
-            <button type="submit" class="btn btn-primary">Guardar</button>
+                <input type="hidden" name="confirm" value="1">
+                <button type="submit" class="btn btn-outline-primary">Guardar</button>
+                <a href="<?php echo REGIONES; ?>" class="btn btn-link">Volver</a>
             </form>
         </div>
 

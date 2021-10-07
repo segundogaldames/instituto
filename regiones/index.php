@@ -39,7 +39,12 @@
                 <?php foreach($regiones as $region): ?>
                     <tr>
                         <td><?php echo $region['id']; ?></td>
-                        <td><?php echo $region['nombre'];?></td>
+                        <td>
+                            <a href="<?php echo REGIONES . 'show.php?id=' . $region['id']; ?>">
+                                <?php echo $region['nombre'];?>
+                            </a>
+
+                        </td>
                         <td><?php echo $region['codigo'];?></td>
                     </tr>
                 <?php endforeach; ?>
