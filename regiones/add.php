@@ -2,6 +2,8 @@
     require('../class/rutas.php');
     require('../class/conexion.php');
 
+    session_start();
+
     $res = $mbd->query("SELECT id, nombre FROM regiones ORDER BY nombre");
     $regiones = $res->fetchall();
 
@@ -34,6 +36,7 @@
                 $row = $res->rowCount();
 
                 if ($row) {
+                    $_SESSION['success'] = 'La región se ha registrado correctamente';
                     header('Location: index.php');
                 }
             }
