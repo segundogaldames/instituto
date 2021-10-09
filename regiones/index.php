@@ -8,8 +8,9 @@
 
     session_start();
 
-    $res = $mbd->query("SELECT id, nombre, codigo FROM regiones ORDER BY id DESC");
+    $res = $mbd->query("SELECT id, nombre, codigo FROM regiones ORDER BY nombre");
     $regiones = $res->fetchall();
+
 
     // echo '<pre>';
     // print_r($regiones);exit;

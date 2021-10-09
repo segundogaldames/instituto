@@ -24,6 +24,7 @@
         $res->bindParam(1, $id);
         $res->execute();
         $comunas = $res->fetchall();
+
     }
 
     // echo '<pre>';
@@ -70,8 +71,10 @@
                     <a href="<?php echo REGIONES . 'edit.php?id=' . $region['id']; ?>" class="btn btn-outline-primary btn-sm">Editar</a>
                     <a href="<?php echo COMUNAS . 'add.php?region=' . $id; ?>" class="btn btn-outline-secondary btn-sm">Agregar Comuna</a>
                     <a href="<?php echo REGIONES; ?>" class="btn btn-link btn-sm">Volver</a>
-                    <form action="" method="post">
-
+                    <form action="<?php echo REGIONES . 'delete.php' ?>" method="post">
+                        <input type="hidden" name="region" value="<?php echo $id; ?>">
+                        <input type="hidden" name="confirm" value="1">
+                        <button type="submit" class="btn btn-warning btn-sm">Eliminar</button>
                     </form>
                 </p>
             <?php else: ?>
@@ -86,7 +89,7 @@
             <?php if(!empty($comunas)): ?>
                 <div class="list-group">
                     <?php foreach($comunas as $comuna): ?>
-                        <a href="#" class="list-group-item list-group-item-action"><?php echo $comuna['nombre']; ?></a>
+                        <a href="<?php echo COMUNAS . 'show.php?id=' . $comuna['id']; ?>" class="list-group-item list-group-item-action"><?php echo $comuna['nombre']; ?></a>
                     <?php endforeach; ?>
                 </div>
             <?php else: ?>
