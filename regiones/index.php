@@ -34,7 +34,7 @@
         <div class="col-md-6 offset-md-3">
             <?php include('../partials/mensajes.php'); ?>
 
-            <h3 class="text-primary">Lista de Regiones | <a href="<?php echo REGIONES . 'add.php'; ?>" class="btn btn-link">Nueva Región</a> </h3>
+            <h3 class="text-primary">Lista de Regiones <a href="<?php echo REGIONES . 'add.php'; ?>" class="btn btn-outline-primary">Nueva Región</a> </h3>
             <table class="table table-hover table-responsive">
                 <tr>
                     <th>Id</th>

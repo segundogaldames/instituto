@@ -8,9 +8,21 @@
 
     session_start();
 
-    $res = $mbd->query("SELECT id, nombre FROM roles ORDER BY nombre");
-    $roles = $res->fetchall();
+    #valdamos el valor del id que se ha enviado desde el index
+    if (isset($_GET['id'])) {
+        $id = (int) $_GET['id'];
 
+        #consultar en la tabla regiones si hay una region con este id
+        $res = $mbd->prepare("SELECT id, nombre FROM roles WHERE id = ?");
+        $res->bindParam(1, $id);
+        $res->execute();
+        $rol = $res->fetch();
+
+    }
+
+    // echo '<pre>';
+    // print_r($comunas);exit;
+    // echo '</pre>';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,28 +40,24 @@
 
     <div class="container">
         <div class="col-md-6 offset-md-3">
+            <h3 class="text-primary">Rol</h3>
+
             <?php include('../partials/mensajes.php'); ?>
 
-            <h3 class="text-primary">Lista de Roles <a href="<?php echo ROLES . 'add.php'; ?>" class="btn btn-outline-primary">Nuevo Rol</a> </h3>
-
-            <?php if(count($roles)): ?>
+            <?php if(!empty($rol)): ?>
                 <table class="table table-hover table-responsive">
                     <tr>
-                        <th>Nombre</th>
+                        <th>Rol:</th>
+                        <td><?php echo $rol['nombre']; ?></td>
                     </tr>
-                    <?php foreach($roles as $rol): ?>
-                        <tr>
-                            <td>
-                                <a href="<?php echo ROLES . 'show.php?id=' . $rol['id']; ?>">
-                                    <?php echo $rol['nombre'];?>
-                                </a>
 
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
                 </table>
+                <p>
+                    <a href="<?php echo ROLES . 'edit.php?id=' . $id; ?>" class="btn btn-outline-primary btn-sm">Editar</a>
+                    <a href="<?php echo ROLES; ?>" class="btn btn-link btn-sm">Volver</a>
+                </p>
             <?php else: ?>
-                <p class="text-info">No hay roles registrado</p>
+                <p class="text-info">El dato no existe</p>
             <?php endif; ?>
         </div>
 
