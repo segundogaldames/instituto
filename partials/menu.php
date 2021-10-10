@@ -20,6 +20,7 @@
                     <li><a class="dropdown-item" href="<?php echo REGIONES; ?>">Regiones</a></li>
                     <li><a class="dropdown-item" href="#">Another action</a></li>
                     <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="<?php echo FUNCIONARIOS; ?>">Funcionarios</a></li>
                     <li><a class="dropdown-item" href="<?php echo ROLES; ?>">Roles</a></li>
                 </ul>
                 </li>
