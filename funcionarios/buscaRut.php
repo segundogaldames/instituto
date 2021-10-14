@@ -54,7 +54,7 @@
             </div>
 
             <hr>
-            <?php if(isset($funcionario)): ?>
+            <?php if(!empty($funcionario)): ?>
                 <table class="table table-hover table-responsive">
                     <tr>
                         <th>Nombre</th>
@@ -72,7 +72,7 @@
                     </tr>
                 </table>
             <?php else: ?>
-                <p class="text-info">No hay funcionario registrado</p>
+                <p class="text-info">No hay funcionario registrado con el RUT ingresado</p>
             <?php endif; ?>
         </div>
 
