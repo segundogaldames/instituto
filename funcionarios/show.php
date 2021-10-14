@@ -18,6 +18,12 @@
         $res->execute();
         $funcionario = $res->fetch();
 
+        #funcionario con verificacion de cuenta
+        $res = $mbd->prepare("SELECT id, activo FROM usuarios WHERE usuarioable_id = ?");
+        $res->bindParam(1, $id);
+        $res->execute();
+        $usuario = $res->fetch();
+
     }
 
     // echo '<pre>';
@@ -79,9 +85,31 @@
                         <th>Comuna:</th>
                         <td><?php echo $funcionario['comuna']; ?></td>
                     </tr>
+                    <?php if($usuario): ?>
+                        <tr>
+                            <th>Activo:</th>
+                            <td>
+                                <?php
+                                    if ($usuario['activo'] == 1) {
+                                        echo 'Si';
+                                    }else{
+                                        echo 'No';
+                                    }
+                                ?>
+                            </td>
+                        </tr>
+                    <?php endif; ?>
                 </table>
                 <p>
                     <a href="<?php echo FUNCIONARIOS . 'edit.php?id=' . $id; ?>" class="btn btn-outline-primary btn-sm">Editar</a>
+
+                    <!-- verificamos que el usuario tenga una cuenta -->
+                    <?php if(empty($usuario)): ?>
+                        <a href="<?php echo USUARIOS . 'add.php?funcionario=' . $id; ?>" class="btn btn-outline-success btn-sm">Crear Cuenta</a>
+                    <?php else: ?>
+                        <a href="<?php echo USUARIOS . 'edit.php?id=' . $usuario['id']; ?>" class="btn btn-outline-success btn-sm">Modificar Cuenta</a>
+                    <?php endif; ?>
+
                     <a href="<?php echo FUNCIONARIOS; ?>" class="btn btn-link btn-sm">Volver</a>
                 </p>
             <?php else: ?>

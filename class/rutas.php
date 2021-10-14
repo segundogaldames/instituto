@@ -5,4 +5,5 @@ define('REGIONES', BASE_URL . 'regiones/');
 define('COMUNAS', BASE_URL . 'comunas/');
 define('ROLES', BASE_URL . 'roles/');
 define('FUNCIONARIOS', BASE_URL . 'funcionarios/');
+define('USUARIOS', BASE_URL . 'usuarios/');
 
