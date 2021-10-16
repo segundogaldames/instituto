@@ -21,7 +21,6 @@
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="<?php echo FUNCIONARIOS; ?>">Funcionarios</a></li>
                     <li><a class="dropdown-item" href="<?php echo ROLES; ?>">Roles</a></li>
-                    <li><a class="dropdown-item" href="<?php echo USUARIOS; ?>">Usuarios</a></li>
                 </ul>
                 </li>
             </ul>

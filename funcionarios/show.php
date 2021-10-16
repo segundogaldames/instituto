@@ -105,9 +105,9 @@
 
                     <!-- verificamos que el usuario tenga una cuenta -->
                     <?php if(empty($usuario)): ?>
-                        <a href="<?php echo USUARIOS . 'add.php?funcionario=' . $id; ?>" class="btn btn-outline-success btn-sm">Crear Cuenta</a>
+                        <a href="<?php echo ADD_USUARIO . $id; ?>" class="btn btn-outline-success btn-sm">Crear Cuenta</a>
                     <?php else: ?>
-                        <a href="<?php echo USUARIOS . 'edit.php?id=' . $usuario['id']; ?>" class="btn btn-outline-success btn-sm">Modificar Cuenta</a>
+                        <a href="<?php echo EDIT_USUARIO . $usuario['id']; ?>" class="btn btn-outline-success btn-sm">Modificar Cuenta</a>
                     <?php endif; ?>
 
                     <a href="<?php echo FUNCIONARIOS; ?>" class="btn btn-link btn-sm">Volver</a>
