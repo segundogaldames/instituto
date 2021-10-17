@@ -13,15 +13,18 @@
                 <a class="nav-link" href="#">Contacto</a>
                 </li>
                 <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Administrar
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="<?php echo REGIONES; ?>">Regiones</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="<?php echo FUNCIONARIOS; ?>">Funcionarios</a></li>
-                    <li><a class="dropdown-item" href="<?php echo ROLES; ?>">Roles</a></li>
-                </ul>
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Administrar
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="<?php echo REGIONES; ?>">Regiones</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="<?php echo FUNCIONARIOS; ?>">Funcionarios</a></li>
+                        <li><a class="dropdown-item" href="<?php echo ROLES; ?>">Roles</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="<?php echo LOGIN; ?>">Iniciar Sesión</a>
                 </li>
             </ul>
             <form class="d-flex">

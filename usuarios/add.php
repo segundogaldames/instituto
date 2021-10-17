@@ -31,8 +31,9 @@
                $msg = 'Los passwords ingresados no coinciden';
            }else{
                 #verificamos que el funcionario ingresado no tenga una cuenta
-                $res = $mbd->prepare("SELECT id FROM usuarios WHERE usuarioable_id = ? AND usuarioable_type = 'Funcionario'");
-                $res->bindParam(1, $funcionario_id);
+                $res = $mbd->prepare("SELECT id FROM usuarios WHERE email = ? AND usuarioable_id = ? AND usuarioable_type = 'Funcionario'");
+                $res->bindParam(1, $email);
+                $res->bindParam(2, $funcionario_id);
                 $res->execute();
                 $usuario = $res->fetch();
 
