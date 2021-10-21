@@ -24,6 +24,12 @@
         $res->execute();
         $usuario = $res->fetch();
 
+        #lista de telefonos del usuario
+        $res = $mbd->prepare("SELECT id, numero FROM telefonos WHERE telefonoable = ? AND telefonable_type = 'Funcionario");
+        $res->bindParam(1, $id);
+        $res->execute();
+        $telefonos = $res->fetchall();
+
     }
 
     // echo '<pre>';
@@ -100,6 +106,24 @@
                             </td>
                         </tr>
                     <?php endif; ?>
+                    <tr>
+                        <th>Teléfonos:</th>
+                        <td>
+                            <?php if($telefonos): ?>
+                                <div class="list-group">
+                                    <?php foreach($telefonos as $telefono): ?>
+                                        <a href="<?php echo SHOW_TELEFONO . $telefono['id']; ?>" class="list-group-item list-group-item-action">
+                                            <?php echo $telefono['numero']; ?>
+                                        </a>
+                                    <?php endforeach; ?>
+                                </div>
+                            <?php else: ?>
+                                No registrado
+                            <?php endif; ?>
+                            <br>
+                            <a href="<?php echo ADD_TELEFONO . $id; ?>" class="btn btn-light btn-sm">Agregar Teléfono</a>
+                        </td>
+                    </tr>
                 </table>
                 <p>
                     <a href="<?php echo FUNCIONARIOS . 'edit.php?id=' . $id; ?>" class="btn btn-outline-primary btn-sm">Editar</a>
