@@ -68,6 +68,7 @@
     print_r($regiones);exit;
     echo '</pre>'; */
 ?>
+<?php if(isset($_SESSION['autenticado']) && $_SESSION['usuario_rol'] == 'Administrador(a)'): ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -129,3 +130,6 @@
 
 </body>
 </html>
+<?php else: ?>
+    <?php header('Location:' . BASE_URL); ?>
+<?php endif; ?>

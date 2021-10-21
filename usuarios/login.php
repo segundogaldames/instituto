@@ -30,7 +30,7 @@
             if (!$usuario) {
                 $msg = 'El email o el password no están registrados';
             }else {
-                $_SESSION['autenticado'] = 'si';
+                $_SESSION['autenticado'] = true;
                 $_SESSION['usuario_id'] = $usuario['id'];
                 $_SESSION['usuario_type'] = $usuario['usuarioable_type'];
                 $_SESSION['usuario_nombre'] = $usuario['nombre'];
