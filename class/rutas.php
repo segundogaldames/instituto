@@ -13,4 +13,6 @@ define('USUARIOS', BASE_URL . 'usuarios/');
 define('ADD_USUARIO', USUARIOS . 'add.php?funcionario=' . PARAM);
 define('EDIT_USUARIO', USUARIOS . 'edit.php?usuario=' . PARAM);
 define('LOGIN', USUARIOS . 'login.php');
+define('LOGOUT', USUARIOS . 'logout.php');
+define('EDIT_PASS', USUARIOS . 'editPassword.php?usuario=' . PARAM);
 

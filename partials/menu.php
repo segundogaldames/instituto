@@ -23,9 +23,25 @@
                         <li><a class="dropdown-item" href="<?php echo ROLES; ?>">Roles</a></li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                <a class="nav-link" href="<?php echo LOGIN; ?>">Iniciar Sesión</a>
-                </li>
+                <?php if (isset($_SESSION['autenticado'])): ?>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <?php echo $_SESSION['usuario_nombre']; ?>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li>
+                                <a class="dropdown-item" href="<?php echo EDIT_PASS . $_SESSION['usuario_id']; ?>">Cambiar Password</a>
+                            </li>
+                            <li>
+                                <li><a class="dropdown-item" href="<?php echo LOGOUT; ?>">Cerrar Sesión</a></li>
+                            </li>
+                        </ul>
+                    </li>
+                <?php else: ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?php echo LOGIN; ?>">Iniciar Sesión</a>
+                    </li>
+                <?php endif; ?>
             </ul>
             <form class="d-flex">
                 <input class="form-control me-2" type="search" placeholder="Encuentra tu carrera" aria-label="Search">

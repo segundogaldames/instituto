@@ -9,7 +9,9 @@
 
     if (isset($_POST['confirm']) && $_POST['confirm'] == 1) {
         $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
-        $clave = trim(strip_tags($_POS['clave']));
+        $clave = trim(strip_tags($_POST['clave']));
+
+        //print_r($_POST);exit;
 
         if (!$email) {
             $msg = 'Ingresa tu correo electrónico';
@@ -19,7 +21,7 @@
             #consultar por el usuario segun email y clave ingresados
             $clave = sha1($clave);
 
-            $res = $mbd->prepare("SELECT u.id, u.email, u.usuarioable_type, u.usuarioable_id, f.nombre FROM usuarios u INNER JOIN funcionarios f ON f.id = u.usuarioable_id WHERE u.email = ? AND u.clave = ?");
+            $res = $mbd->prepare("SELECT u.id, u.email, u.usuarioable_type, u.usuarioable_id, f.nombre FROM usuarios u INNER JOIN funcionarios f ON f.id = u.usuarioable_id WHERE u.email = ? AND u.clave = ? AND activo = 1");
             $res->bindParam(1, $email);
             $res->bindParam(2, $clave);
             $res->execute();
@@ -28,6 +30,7 @@
             if (!$usuario) {
                 $msg = 'El email o el password no están registrados';
             }else {
+                $_SESSION['autenticado'] = 'si';
                 $_SESSION['usuario_id'] = $usuario['id'];
                 $_SESSION['usuario_type'] = $usuario['usuarioable_type'];
                 $_SESSION['usuario_nombre'] = $usuario['nombre'];
@@ -43,6 +46,8 @@
                         $_SESSION['usuario_rol'] = $rol['rol'];
                     }
                 }
+
+                header('Location: ' . BASE_URL);
             }
         }
     }
