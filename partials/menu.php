@@ -33,6 +33,9 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li>
+                                <a class="dropdown-item" href="<?php echo FUNCIONARIOS . 'show.php?id=' . $_SESSION['usuario_funcionarioId']; ?>">Mi Perfil</a>
+                            </li>
+                            <li>
                                 <a class="dropdown-item" href="<?php echo EDIT_PASS . $_SESSION['usuario_id']; ?>">Cambiar Password</a>
                             </li>
                             <li>

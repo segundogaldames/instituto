@@ -12,7 +12,7 @@
     $funcionarios = $res->fetchall();
 
 ?>
-<?php if(isset($_SESSION['autenticado']) && $_SESSION['usuario_rol'] == 'Administrador(a)'): ?>
+<?php if(isset($_SESSION['autenticado']) && $_SESSION['usuario_type'] == 'Funcionario'): ?>
 
 <!DOCTYPE html>
 <html lang="en">

@@ -5,15 +5,15 @@
 
     session_start();
 
-    $title = 'Nuevo Teléfono';
+    $title = 'Editar Teléfono';
 
-    if (isset($_GET['funcionario'])) {
-        $id_funcionario = (int) $_GET['funcionario'];
+    if (isset($_GET['telefono'])) {
+        $id = (int) $_GET['telefono'];
 
-        $res = $mbd->prepare("SELECT id, nombre FROM funcionarios WHERE id = ?");
-        $res->bindParam(1, $id_funcionario);
+        $res = $mbd->prepare("SELECT t.id, t.numero, t.fijo, t.telefonoable_id, t.telefonoable_type, f.nombre, u.id as usuario FROM funcionarios f INNER JOIN telefonos t ON t.telefonoable_id = f.id INNER JOIN usuarios u ON u.usuarioable_id = f.id WHERE t.id = ?");
+        $res->bindParam(1, $id);
         $res->execute();
-        $funcionario = $res->fetch();
+        $telefono = $res->fetch();
 
 
         #proceso de validacion y recuperacion de datos desde el formulario
@@ -26,29 +26,17 @@
             }elseif (!$fijo) {
                 $msg = 'Seleccione el tipo de teléfono';
             }else{
-                #preguntar si el telefono ingresado ya existe en la tabla telefonos
-                $res = $mbd->prepare("SELECT id FROM telefonos WHERE numero = ? AND telefonoable_type = 'Funcionario'");
+                $res = $mbd->prepare("UPDATE telefonos SET numero = ?, fijo = ? WHERE id = ?");
                 $res->bindParam(1, $numero);
+                $res->bindParam(2, $fijo);
+                $res->bindParam(3, $id);
                 $res->execute();
-                $telefono = $res->fetch();
 
-                if ($telefono) {
-                    $msg = 'El teléfono ingresado ya existe... intente con otro';
-                }
-                else{
-                    #guardamos el telefono
-                    $res = $mbd->prepare("INSERT INTO telefonos(numero, fijo, telefonoable_id, telefonoable_type) VALUES(?, ?, ?, 'Funcionario')");
-                    $res->bindParam(1, $numero);
-                    $res->bindParam(2, $fijo);
-                    $res->bindParam(3, $id_funcionario);
-                    $res->execute();
+                $row = $res->rowCount();
 
-                    $row = $res->rowCount();
-
-                    if ($row) {
-                        $_SESSION['success'] = 'El teléfono se ha registrado correctamente';
-                        header('Location: ' . FUNCIONARIOS . 'show.php?id=' . $id_funcionario);
-                    }
+                if ($row) {
+                    $_SESSION['success'] = 'El teléfono se ha modificado correctamente';
+                    header('Location: ' . SHOW_TELEFONO . $id);
                 }
             }
 
@@ -59,7 +47,7 @@
     print_r($regiones);exit;
     echo '</pre>'; */
 ?>
-<?php if(isset($_SESSION['autenticado']) && $_SESSION['usuario_type'] == 'Funcionario'): ?>
+<?php if(isset($_SESSION['autenticado']) && $_SESSION['usuario_id'] == $telefono['usuario']): ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -82,16 +70,23 @@
                     <?php echo $msg; ?>
                 </div>
             <?php endif; ?>
-            <?php if($funcionario): ?>
+            <?php if($telefono): ?>
                 <form action="" method="POST">
                     <div class="mb-3">
                         <label for="telefono" class="form-label">Teléfono<span class="text-danger">*</span></label>
-                        <input type="number" name="numero" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?php if(isset($_POST['numero'])) echo $_POST['numero']; ?>">
-                        <div id="emailHelp" class="form-text text-danger">Ingresa el teléfono que deseas registrar.</div>
+                        <input type="number" name="numero" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?php echo $telefono['numero'] ?>">
+                        <div id="emailHelp" class="form-text text-danger">Ingresa el teléfono que deseas modificar.</div>
                     </div>
                     <div class="mb-3">
                         <label for="tipo" class="form-label">Tipo<span class="text-danger">*</span></label>
                         <select name="fijo" class="form-control">
+                            <option value="<?php echo $telefono['fijo']; ?>">
+                                <?php if($telefono['fijo'] == 1): ?>
+                                    Teléfono Fijo
+                                <?php else: ?>
+                                    Teléfono Móvil
+                                <?php endif; ?>
+                            </option>
                             <option value="">Seleccione...</option>
                             <option value="1">Fijo</option>
                             <option value="2">Movil</option>
@@ -100,11 +95,11 @@
                         <div id="emailHelp" class="form-text text-danger">Selecciona el tipo de teléfono que deseas registrar.</div>
                     </div>
                     <input type="hidden" name="confirm" value="1">
-                    <button type="submit" class="btn btn-outline-primary">Guardar</button>
-                    <a href="<?php echo FUNCIONARIOS . 'show.php?id=' . $id_funcionario; ?>" class="btn btn-link">Volver</a>
+                    <button type="submit" class="btn btn-outline-primary">Editar</button>
+                    <a href="<?php echo SHOW_TELEFONO . $id; ?>" class="btn btn-link">Volver</a>
                 </form>
             <?php else: ?>
-                <p class="text-info">No se puede registrar el teléfono</p>
+                <p class="text-info">No se puede modificar el teléfono</p>
             <?php endif; ?>
         </div>
 

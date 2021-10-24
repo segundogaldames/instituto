@@ -44,6 +44,7 @@
 
                     if ($rol) {
                         $_SESSION['usuario_rol'] = $rol['rol'];
+                        $_SESSION['usuario_funcionarioId'] = $usuario['usuarioable_id'];
                     }
                 }
 

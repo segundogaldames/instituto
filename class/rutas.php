@@ -21,5 +21,5 @@ define('TELEFONO', BASE_URL . 'telefonos/');
 define('ADD_TELEFONO', TELEFONO . 'add.php?funcionario=' . PARAM);
 define('SHOW_TELEFONO', TELEFONO . 'show.php?telefono=' . PARAM);
 define('EDIT_TELEFONO', TELEFONO . 'edit.php?telefono=' . PARAM);
-define('DEL_TELEFONO', TELEFONO . 'delete.php?telefono=' . PARAM);
+define('DEL_TELEFONO', TELEFONO . 'delete.php');
 

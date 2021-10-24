@@ -25,7 +25,7 @@
         $usuario = $res->fetch();
 
         #lista de telefonos del usuario
-        $res = $mbd->prepare("SELECT id, numero FROM telefonos WHERE telefonoable = ? AND telefonable_type = 'Funcionario");
+        $res = $mbd->prepare("SELECT id, numero FROM telefonos WHERE telefonoable_id = ? AND telefonoable_type = 'Funcionario'");
         $res->bindParam(1, $id);
         $res->execute();
         $telefonos = $res->fetchall();
@@ -36,7 +36,7 @@
     // print_r($comunas);exit;
     // echo '</pre>';
 ?>
-<?php if(isset($_SESSION['autenticado']) && $_SESSION['usuario_rol'] == 'Administrador(a)'): ?>
+<?php if(isset($_SESSION['autenticado']) && $_SESSION['usuario_rol'] == 'Administrador(a)' || $_SESSION['usuario_id'] == $usuario['id']): ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -121,18 +121,25 @@
                                 No registrado
                             <?php endif; ?>
                             <br>
-                            <a href="<?php echo ADD_TELEFONO . $id; ?>" class="btn btn-light btn-sm">Agregar Teléfono</a>
+                            <a href="<?php echo ADD_TELEFONO . $id; ?>" class="btn btn-link btn-sm">Agregar Teléfono</a>
                         </td>
                     </tr>
                 </table>
                 <p>
-                    <a href="<?php echo FUNCIONARIOS . 'edit.php?id=' . $id; ?>" class="btn btn-outline-primary btn-sm">Editar</a>
-
-                    <!-- verificamos que el usuario tenga una cuenta -->
-                    <?php if(empty($usuario)): ?>
-                        <a href="<?php echo ADD_USUARIO . $id; ?>" class="btn btn-outline-success btn-sm">Crear Cuenta</a>
+                    <?php if($_SESSION['usuario_rol'] =='Administrador(a)'): ?>
+                        <a href="<?php echo FUNCIONARIOS . 'edit.php?id=' . $id; ?>" class="btn btn-outline-primary btn-sm">Editar</a>
                     <?php else: ?>
-                        <a href="<?php echo EDIT_USUARIO . $usuario['id']; ?>" class="btn btn-outline-success btn-sm">Modificar Cuenta</a>
+                        <a href="<?php echo FUNCIONARIOS . 'editPerfil.php?id=' . $id; ?>" class="btn btn-outline-primary btn-sm">Editar</a>
+                    <?php endif; ?>
+
+                    <?php if($_SESSION['usuario_rol'] =='Administrador(a)'): ?>
+                    <!-- verificamos que el usuario tenga una cuenta -->
+                        <?php if(empty($usuario)): ?>
+                            <a href="<?php echo ADD_USUARIO . $id; ?>" class="btn btn-outline-success btn-sm">Crear Cuenta</a>
+                        <?php else: ?>
+                            <a href="<?php echo EDIT_USUARIO . $usuario['id']; ?>" class="btn btn-outline-success btn-sm">Modificar Cuenta</a>
+                        <?php endif; ?>
+
                     <?php endif; ?>
 
                     <a href="<?php echo FUNCIONARIOS; ?>" class="btn btn-link btn-sm">Volver</a>
